@@ -1,3 +1,121 @@
-<div>
-Hello
-</div>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>City and Service Title Generator</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("CityServices");
+        const cityInput = document.getElementById("cityInput");
+        const servicesInput = document.getElementById("serviceInput");
+        const outputs = document.getElementById("outputs");
+        document.getElementById("clear").addEventListener("click", (e) => {
+          e.preventDefault();
+          outputs.innerHTML = "";
+        });
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          let cities = cityInput.value.split(", ");
+          const services = servicesInput.value.split(", ");
+
+          cities = cities.sort();
+
+          outputs.innerHTML = "";
+
+          services.forEach((s) => {
+            cities.forEach((c) => {
+              const node = document.createElement("li");
+              node.innerText = `${s} ${toTitleCase(c)}`;
+
+              outputs.appendChild(node);
+            });
+          });
+        });
+      });
+
+      function toTitleCase(str) {
+        return str.replace(/\w\S*/g, function (txt) {
+          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h3 class="display-4">City and Service Title Generator</h3>
+        <p class="lead">By Panatda Catlin</p>
+        <hr class="my-4" />
+        <p>
+          Welcome, this is just a simple application where you can enter a
+          service type and name of any city and it will print out in a list of
+          the service plus name and sort it alphabet order according to the
+          city.
+        </p>
+        <p>This is super easy to use:</p>
+        <ul>
+          <li>Enter each service spearate each service with a comma</li>
+          <li>Enter each city name spearate each service with a comma</li>
+          <li>Hit Submit when you are done</li>
+          <li>List should print</li>
+          <li>Hit Clear to try again</li>
+        </ul>
+        <br />
+        <p>
+          Thank you for using this application, if you have any questions you
+          can contact me at
+          <a href="mailto:panatdainthala@gmail.com" target="_blank"
+            >panatdainthala@gmail.com</a
+          >
+        </p>
+        <br />
+        Have a great day!
+      </div>
+      <form id="CityServices">
+        <div class="form-group">
+          <label for="serviceInput">Services</label>
+          <input
+            type="text"
+            class="form-control"
+            id="serviceInput"
+            placeholder="Enter Services seperated by a ', '"
+            value=""
+          />
+          <small id="servicesHelp" class="form-text text-muted"
+            >Enter Services seperated by a ', '
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="cityInput">City Names</label>
+          <input
+            type="text"
+            class="form-control"
+            id="cityInput"
+            aria-describedby="cityInput"
+            placeholder="Enter Cities seperated by a ', '"
+            value=""
+          />
+          <small id="cityHelp" class="form-text text-muted"
+            >Enter Cities seperated by a ', '
+          </small>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button id="clear" class="btn btn-primary">Clear</button>
+      </form>
+      <ul id="outputs"></ul>
+    </div>
+  </body>
+</html>
